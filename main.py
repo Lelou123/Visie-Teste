@@ -1,17 +1,11 @@
 from flask import Flask, Response, request, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
-import mysql.connector
-import json
-import jinja2
 from werkzeug.utils import redirect
 
 app = Flask(__name__)
 
-
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://murillojulio:bXVyaWxsb2p1@jobs.visie.com.br/murillojulio'
-
 db = SQLAlchemy(app)
 
 class Pessoas(db.Model):
@@ -31,20 +25,13 @@ class Pessoas(db.Model):
         self.data_admissao = data_admissao
 
 
-# select all
+
 app.route("/pessoas", methods=["GET"])
 def seleciona_usuarios():
     pessoa = Pessoas.query.all
     print(pessoa)
     return Response()
 
-# select one
-
-# cadsatrar
-
-# atualizar
-
-# deletar
 
 @app.route("/")
 def index():
@@ -78,12 +65,15 @@ def edit(id):
     return render_template('edit.html', pessoa=pessoa)
 
 
+
 @app.route('/delete/<int:id_pessoa>')
 def delete(id_pessoa):
     pessoa = Pessoas.query.get(id_pessoa)
     db.session.delete(pessoa)
     db.session.commit()
     return redirect(url_for('index'))
+
+
 
 if __name__ == "__main__":
     db.create_all()
