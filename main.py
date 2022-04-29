@@ -1,5 +1,8 @@
 from flask import Flask, Response, request, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
+import mysql.connector
+import json
+import jinja2
 from werkzeug.utils import redirect
 
 app = Flask(__name__)
@@ -36,7 +39,7 @@ def seleciona_usuarios():
 @app.route("/")
 def index():
     pessoas = Pessoas.query.all()
-    return render_template('Index.html', pessoas=pessoas)
+    return render_template('index.html', pessoas=pessoas)
 
 
 
