@@ -23,7 +23,7 @@
             </tr>
           </thead>
             <tbody>
-            {% for item in pessoas %}
+            {% for item in pessoas.items %}
                 <tr>
                         <td>{{item.id}}</td>
                         <td>{{item.nome}}</td>
@@ -34,6 +34,45 @@
             {% endfor %}
             </tbody>
         </table>
+
+
+        <div class="text-right">
+            <a href="{{ url_for('index', page=pessoas.prev_num) }}"
+               class="btn btn-outline-dark
+               {% if pessoas.page == 1 %}disabled{% endif %}">
+                &laquo;
+            </a>
+
+
+            {% for page_num in pessoas.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+
+            {% if page_num %}
+
+                    {% if pessoas.page == page_num %}
+                    <a href="{{ url_for('index', page=page_num) }}"
+                       class="btn btn-dark">
+                        {{ page_num }}
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('index', page=page_num) }}"
+                       class="btn btn-outline-dark">
+                        {{ page_num }}
+                    </a>
+                    {% endif %}
+                {% else %}
+                    ...
+                {% endif %}
+            {% endfor %}
+            <a href="{{ url_for('index', page=pessoas.next_num) }}"
+               class="btn btn-outline-dark
+               {% if pessoas.page == pessoas.pages %}disabled{% endif %}">
+                &raquo;
+            </a>
+        </div>
+        <p class="text-right mt-3">
+           Mostrando Pagina {{ pessoas.page }} de {{ pessoas.pages }}
+        </p>
+
         <div class="col-8 m-auto pt-3 pb-2 text-center">
             <a href="/add" class="btn btn-success">Adicionar</a>
         </div>
