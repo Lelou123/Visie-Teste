@@ -11,6 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://murillojulio:bXVyaWxsb2p1@jobs.visie.com.br/murillojulio'
 db = SQLAlchemy(app)
 
+
 class Pessoas(db.Model):
     id = db.Column('id_pessoa', db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(100))
@@ -28,30 +29,23 @@ class Pessoas(db.Model):
         self.data_admissao = data_admissao
 
 
-
-app.route("/pessoas", methods=["GET"])
-def seleciona_usuarios():
-    pessoa = Pessoas.query.all
-    print(pessoa)
-    return Response()
-
-
 @app.route("/")
 def index():
     pessoas = Pessoas.query.all()
+    for item in pessoas:
+        item.nome = item.nome.split(' ')[0]
     return render_template('index.html', pessoas=pessoas)
 
 
-
-@app.route('/add', methods=['GET','POST'])
+@app.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
-        pessoa = Pessoas(request.form['nome'], request.form['rg'], request.form['cpf'], request.form['data_nascimento'], request.form['data_admissao'])
+        pessoa = Pessoas(request.form['nome'], request.form['rg'], request.form['cpf'], request.form['data_nascimento'],
+                         request.form['data_admissao'])
         db.session.add(pessoa)
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('add.html')
-
 
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
@@ -68,14 +62,12 @@ def edit(id):
     return render_template('edit.html', pessoa=pessoa)
 
 
-
 @app.route('/delete/<int:id_pessoa>')
 def delete(id_pessoa):
     pessoa = Pessoas.query.get(id_pessoa)
     db.session.delete(pessoa)
     db.session.commit()
     return redirect(url_for('index'))
-
 
 
 if __name__ == "__main__":

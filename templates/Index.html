@@ -27,7 +27,7 @@
                 <tr>
                         <td>{{item.id}}</td>
                         <td>{{item.nome}}</td>
-                        <td>{{item.data_admissao}}</td>
+                        <td>{{item.data_admissao.strftime("%d/%m/%Y")}}</td>
                         <td><a href="/edit/{{item.id}}" class="btn btn-primary">Editar</a></td>
                         <td><a href="/delete/{{item.id}}" class="btn btn-danger">Deletar</a></td>
                 </tr>
