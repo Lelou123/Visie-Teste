@@ -31,7 +31,6 @@ class Pessoas(db.Model):
 
 @app.route("/")
 def index():
-
     page = request.args.get('page', 1, type=int)
 
     pessoas = Pessoas.query.paginate(page=page, per_page=8)
@@ -40,7 +39,6 @@ def index():
         item.nome = item.nome.split(' ')[0]
 
     return render_template('index.html', pessoas=pessoas)
-
 
 
 @app.route('/add', methods=['GET', 'POST'])

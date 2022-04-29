@@ -1,2 +1,6 @@
-flask
+flask~=2.1.1
 flask-sqlalchemy
+mysql~=0.0.3
+mysql-connector-python~=8.0.29
+Jinja2~=3.1.1
+Werkzeug~=2.1.1
