@@ -1,33 +1,16 @@
 from flask import Flask, Response, request, render_template, url_for
-from flask_sqlalchemy import SQLAlchemy
+from werkzeug.utils import redirect
+from src.models import db, Pessoas
+
 import mysql.connector
 import json
 import jinja2
-from werkzeug.utils import redirect
+
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://murillojulio:bXVyaWxsb2p1@jobs.visie.com.br/murillojulio'
-db = SQLAlchemy(app)
-
-
-class Pessoas(db.Model):
-    id = db.Column('id_pessoa', db.Integer, primary_key=True, autoincrement=True)
-    nome = db.Column(db.String(100))
-    rg = db.Column(db.String(100))
-    cpf = db.Column(db.String(100))
-    data_nascimento = db.Column(db.Date)
-    data_admissao = db.Column(db.Date)
-    funcao = db.Column(db.String(100))
-
-    def __init__(self, nome, rg, cpf, data_nascimento, data_admissao):
-        self.nome = nome
-        self.rg = rg
-        self.cpf = cpf
-        self.data_nascimento = data_nascimento
-        self.data_admissao = data_admissao
-
 
 @app.route("/")
 def index():
@@ -75,5 +58,7 @@ def delete(id_pessoa):
 
 
 if __name__ == "__main__":
-    db.create_all()
+    db.init_app(app=app)
+    with app.test_request_context():
+        db.create_all()
     app.run()
