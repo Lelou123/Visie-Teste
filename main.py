@@ -16,14 +16,16 @@ def index():
     page = request.args.get('page', 1, type=int)
     pessoas = Pessoas.query.paginate(page=page, per_page=8)
     if request.method == 'POST':
-        if request.form.get('action1') == 'Admissao(Decres)':
-            pessoas = Pessoas.query.order_by(Pessoas.data_admissao.desc()).paginate(page=page, per_page=8)
+        if request.form.get('action') == 'Ver Paginado':
+            pessoas = Pessoas.query.paginate(page=page, per_page=8)
+        elif request.form.get('action1') == 'Admissao(Decres)':
+            pessoas = Pessoas.query.order_by(Pessoas.data_admissao.desc()).paginate(page=page, per_page=100)
         elif request.form.get('action2') == 'Admissao(Cresc)':
-            pessoas = Pessoas.query.order_by(Pessoas.data_admissao).paginate(page=page, per_page=8)
+            pessoas = Pessoas.query.order_by(Pessoas.data_admissao).paginate(page=page, per_page=100)
         elif request.form.get('action3') == 'Alfabetica(Decres)':
-            pessoas = Pessoas.query.order_by(Pessoas.nome.desc()).paginate(page=page, per_page=8)
+            pessoas = Pessoas.query.order_by(Pessoas.nome.desc()).paginate(page=page, per_page=100)
         elif request.form.get('action4') == 'Alfabetica(Cresc)':
-            pessoas = Pessoas.query.order_by(Pessoas.nome).paginate(page=page, per_page=8)
+            pessoas = Pessoas.query.order_by(Pessoas.nome).paginate(page=page, per_page=100)
         else:
             pass
 

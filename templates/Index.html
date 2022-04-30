@@ -69,20 +69,25 @@
                 &raquo;
             </a>
         </div>
+
         <p class="text-right mt-3">
            Mostrando Pagina {{ pessoas.page }} de {{ pessoas.pages }}
         </p>
-
+        <div class="text-center">
+            <form method="post" action="/">
+                <input class="btn btn-primary" type="submit" value="Ver Paginado" name="action0"/>
+            </form>
+        </div>
         <div class="col-8 m-auto pt-3 pb-2 text-center">
-            <a href="/add" class="btn btn-success">Adicionar</a>
+            <a href="/add" class="btn btn-success">Adicionar Pessoa</a>
         </div>
 
-        <h3>Filtros<h3/>
+        <h3 class="mt-3">Filtros<h3/>
         <form method="post" action="/">
-            <input type="submit" value="Admissao(Decres)" name="action1"/>
-            <input type="submit" value="Admissao(Cresc)" name="action2" />
-            <input type="submit" value="Alfabetica(Decres)" name="action3"/>
-            <input type="submit" value="Alfabetica(Cresc)" name="action4" />
+            <input class="btn btn-primary"  type="submit" value="Admissao(Decres)" name="action1"/>
+            <input class="btn btn-primary"  type="submit" value="Admissao(Cresc)" name="action2" />
+            <input class="btn btn-primary"  type="submit" value="Alfabetica(Decres)" name="action3"/>
+            <input class="btn btn-primary"  type="submit" value="Alfabetica(Cresc)" name="action4" />
         </form>
 
 
