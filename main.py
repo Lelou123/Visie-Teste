@@ -22,9 +22,9 @@ def index():
             pessoas = Pessoas.query.order_by(Pessoas.data_admissao.desc()).paginate(page=page, per_page=100)
         elif request.form.get('action2') == 'Admissao(Cresc)':
             pessoas = Pessoas.query.order_by(Pessoas.data_admissao).paginate(page=page, per_page=100)
-        elif request.form.get('action3') == 'Alfabetica(Decres)':
+        elif request.form.get('action3') == 'Nome(Z-A)':
             pessoas = Pessoas.query.order_by(Pessoas.nome.desc()).paginate(page=page, per_page=100)
-        elif request.form.get('action4') == 'Alfabetica(Cresc)':
+        elif request.form.get('action4') == 'Nome(A-Z)':
             pessoas = Pessoas.query.order_by(Pessoas.nome).paginate(page=page, per_page=100)
         else:
             pass
