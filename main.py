@@ -1,7 +1,6 @@
 from flask import Flask, Response, request, render_template, url_for
 from werkzeug.utils import redirect
-from src.models import db
-from src.models import Pessoas
+from src.models import db, Pessoas
 import mysql.connector
 import json
 import jinja2

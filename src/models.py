@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 class Pessoas(db.Model):
     id = db.Column('id_pessoa', db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(100))
