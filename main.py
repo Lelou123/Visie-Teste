@@ -1,22 +1,31 @@
 from flask import Flask, Response, request, render_template, url_for
 from werkzeug.utils import redirect
 from src.models import db, Pessoas
-
 import mysql.connector
 import json
 import jinja2
-
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://murillojulio:bXVyaWxsb2p1@jobs.visie.com.br/murillojulio'
 
-@app.route("/")
+
+@app.route("/", methods=['GET', 'POST'])
 def index():
     page = request.args.get('page', 1, type=int)
-
     pessoas = Pessoas.query.paginate(page=page, per_page=8)
+    if request.method == 'POST':
+        if request.form.get('action1') == 'Admissao(Decres)':
+            pessoas = Pessoas.query.order_by(Pessoas.data_admissao.desc()).paginate(page=page, per_page=8)
+        elif request.form.get('action2') == 'Admissao(Cresc)':
+            pessoas = Pessoas.query.order_by(Pessoas.data_admissao).paginate(page=page, per_page=8)
+        elif request.form.get('action3') == 'Alfabetica(Decres)':
+            pessoas = Pessoas.query.order_by(Pessoas.nome.desc()).paginate(page=page, per_page=8)
+        elif request.form.get('action4') == 'Alfabetica(Cresc)':
+            pessoas = Pessoas.query.order_by(Pessoas.nome).paginate(page=page, per_page=8)
+        else:
+            pass
 
     for item in pessoas.items:
         item.nome = item.nome.split(' ')[0]
