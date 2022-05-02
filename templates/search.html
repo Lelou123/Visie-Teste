@@ -14,14 +14,12 @@
 
 
     <div class="col-4 m-auto pt-4 pb-2 text-center mb-3">
-        <form action="/searchPessoa" class="container" method="post">
-
-                <div class="row mt-3">
-                    <label for="nome">Busque Outro Nome</label>
-                    <input type="text " name="nome" id="nome" placeholder="Nome" class="form-control">
-                </div>
-
-            <div class="col-4 m-auto pt-4 pb-2 text-center">
+        <h3 style="font-size: 1.3em;margin-bottom: 15px;">Busque outro Nome</h3>
+        <form action="/searchPessoa" class="container" method="post" style="display: flex;justify-content: center;align-items: flex-end;gap: 22px;">
+            <div>
+                <input type="text " name="nome" id="nome" placeholder="Nome" style="width: 300px;" class="form-control">
+            </div>
+            <div>
                 <button type="submit" class="btn btn-outline-success">Pesquisar</button>
             </div>
         </form>
