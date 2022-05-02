@@ -46,6 +46,30 @@ def add():
     return render_template('add.html')
 
 
+@app.route('/searchPessoa', methods=['GET', 'POST'])
+def searchP():
+    page = request.args.get('page', 1, type=int)
+    pessoas = Pessoas.query.paginate(page=page, per_page=1000)
+
+    filtered = []
+
+    if request.method == 'POST':
+        pessoaN = request.form['nome'].lower()
+
+        for item in pessoas.items:
+            itemN = item.nome.lower()
+            if itemN == pessoaN:
+
+                filtered.append(item)
+            else:
+                itemN = itemN.split(' ')[0]
+
+                if itemN == pessoaN:
+                    filtered.append(item)
+
+    return render_template('search.html', pessoas=filtered)
+
+
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit(id):
     pessoa = Pessoas.query.get(id)
