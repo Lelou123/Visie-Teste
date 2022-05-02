@@ -4,8 +4,7 @@
 
 
 <h3>Objetivo:</h3>
-Api fazendo as ações crud com o banco de dados
-Basicamente uma api que faz uma chamada e guarda os dados dessa outra api.
+Api fazendo as ações crud com o banco de dados.
 
 <br>
 
